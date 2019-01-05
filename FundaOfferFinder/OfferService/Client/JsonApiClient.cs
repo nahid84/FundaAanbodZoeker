@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Options;
+using OfferService.Settings;
+using System;
 using System.Net.Http;
-using System.Text;
 
 namespace OfferService.Client
 {
     public class JsonApiClient : ApiClient
     {
-        public JsonApiClient()
+        public JsonApiClient(IOptions<FundaApiSettings> settings)
         {
             Client = new HttpClient();
-            Client.BaseAddress = new Uri("");
+            Client.BaseAddress = new Uri(settings.Value.BaseUri);
         }
     }
 }
