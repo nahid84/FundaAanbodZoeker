@@ -12,18 +12,21 @@ namespace OfferFinderConsole
     {
         private const string SettingsFileName = "appsettings.json";
 
+        private static IConfiguration CreateConfiguration => 
+            new ConfigurationBuilder().AddJsonFile(SettingsFileName, optional: false, reloadOnChange: true)
+                                      .Build();
+
+        private static IServiceProvider RegisterServices(IConfiguration configuration) =>
+            new ServiceCollection().AddOptions()
+                                   .Configure<FundaApiSettings>(configuration.GetSection(nameof(FundaApiSettings)))
+                                   .AddSingleton<ApiClient, JsonApiClient>()
+                                   .AddTransient<OfferFilter>()
+                                   .BuildServiceProvider();
+
+
         internal static void Main(string[] args)
         {
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddJsonFile(SettingsFileName, optional: false, reloadOnChange: true)
-                .Build();
-
-            IServiceProvider serviceProvider = new ServiceCollection()
-                .AddOptions()
-                .Configure<FundaApiSettings>(configuration.GetSection(nameof(FundaApiSettings)))
-                .AddSingleton<ApiClient, JsonApiClient>()
-                .AddTransient<OfferFilter>()
-                .BuildServiceProvider();
+            IServiceProvider serviceProvider = RegisterServices(CreateConfiguration);
 
             OfferFilter offerFilter = serviceProvider.GetService<OfferFilter>();
 
