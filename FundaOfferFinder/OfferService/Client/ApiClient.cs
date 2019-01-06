@@ -7,7 +7,7 @@ namespace OfferService.Client
     {
         public HttpClient Client { get; protected set; }
 
-        public async Task<TReturn> GetData<TReturn>(string requestUri)
+        public virtual async Task<TReturn> GetData<TReturn>(string requestUri)
         {
             var response = await Client.GetAsync(requestUri);
             return await response.Content.ReadAsAsync<TReturn>();

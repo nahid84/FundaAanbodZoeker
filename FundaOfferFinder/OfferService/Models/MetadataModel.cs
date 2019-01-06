@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OfferService.Models
 {
-    internal class MetadataModel
+    public class MetadataModel
     {
         public string Titel { get; set; }
     }

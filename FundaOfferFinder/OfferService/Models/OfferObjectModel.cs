@@ -1,6 +1,6 @@
 ﻿namespace OfferService.Models
 {
-    internal class OfferObjectModel
+    public class OfferObjectModel
     {
         public string MakelaarNaam { get; set; }
     }

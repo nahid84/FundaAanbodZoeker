@@ -59,7 +59,9 @@ namespace OfferService
                 var templateMap = TemplateMap(pageIndex, searchParams);
                 string relativeUri = Regex.Replace(apiSettings.OfferUriTemplate, "{[^{}]+}", x => GetReplacement(x, templateMap));
                 offerModel = await apiClient.GetData<OfferModel>(relativeUri);
-                offers.AddRange(offerModel.Objects);
+
+                if (offerModel?.Objects != null)
+                    offers.AddRange(offerModel.Objects);
 
                 if (stopWatch.Elapsed <= TimeSpan.FromSeconds(60))
                 {
@@ -71,7 +73,7 @@ namespace OfferService
                 else
                     stopWatch.Restart();
 
-            } while (pageIndex++ < offerModel.Paging.AantalPaginas);
+            } while (pageIndex++ < offerModel?.Paging?.AantalPaginas);
 
             stopWatch.Stop();
 
