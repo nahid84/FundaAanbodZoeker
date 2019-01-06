@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferService", "OfferService\OfferService.csproj", "{8B3CE773-9890-4A5D-B351-53F61B63A92A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferFinderConsole", "OfferFinderConsole\OfferFinderConsole.csproj", "{66088469-23E3-4DE3-87CE-0FD88536D8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferFinderConsole", "OfferFinderConsole\OfferFinderConsole.csproj", "{66088469-23E3-4DE3-87CE-0FD88536D8B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{E7B67759-7737-4D3D-B72C-3E8AB646FE53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{66088469-23E3-4DE3-87CE-0FD88536D8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66088469-23E3-4DE3-87CE-0FD88536D8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66088469-23E3-4DE3-87CE-0FD88536D8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

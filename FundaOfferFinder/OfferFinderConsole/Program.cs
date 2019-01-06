@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Models;
 using OfferService;
 using OfferService.Client;
 using OfferService.Settings;
@@ -9,7 +10,7 @@ namespace OfferFinderConsole
 {
     internal class Program
     {
-        private static string SettingsFileName = "appsettings.json";
+        private const string SettingsFileName = "appsettings.json";
 
         internal static void Main(string[] args)
         {
@@ -26,7 +27,19 @@ namespace OfferFinderConsole
 
             OfferFilter offerFilter = serviceProvider.GetService<OfferFilter>();
 
-            Console.WriteLine("All Set!!!");
+            string regionName = "amsterdam";
+            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(regionName).Result;
+
+            int totalCount = 0;
+            foreach (EstateAgentInfo agent in agents)
+            {
+                totalCount += agent.OfferCount;
+                Console.WriteLine($"{agent.Name} has {agent.OfferCount} items in sale");
+            }
+
+            Console.WriteLine($"Total {totalCount} items in sale for {regionName}");
+
+            Console.ReadKey();
         }
     }
 }
