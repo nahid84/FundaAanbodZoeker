@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
 using OfferService;
@@ -21,6 +22,7 @@ namespace OfferFinderConsole
                                    .Configure<FundaApiSettings>(configuration.GetSection(nameof(FundaApiSettings)))
                                    .AddSingleton<ApiClient, JsonApiClient>()
                                    .AddTransient<OfferFilter>()
+                                   .AddLogging(x=> x.AddConsole())
                                    .BuildServiceProvider();
 
 
@@ -28,10 +30,13 @@ namespace OfferFinderConsole
         {
             IServiceProvider serviceProvider = RegisterServices(CreateConfiguration);
 
+            ILogger logger = serviceProvider.GetService<ILogger<Program>>();
             OfferFilter offerFilter = serviceProvider.GetService<OfferFilter>();
 
             string regionName = "amsterdam";
-            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder().Result;
+            logger.LogInformation($"Started with region {regionName}, Fetching...");
+
+            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(regionName).Result;
 
             int totalCount = 0;
             foreach (EstateAgentInfo agent in agents)
