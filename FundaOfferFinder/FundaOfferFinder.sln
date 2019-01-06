@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferFinderConsole", "Offer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{E7B67759-7737-4D3D-B72C-3E8AB646FE53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferService.UnitTests", "OfferService.UnitTests\OfferService.UnitTests.csproj", "{B058B9E1-0B64-4998-86CB-616DD90A925F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferService.IntegrationTests", "OfferService.IntegrationTests\OfferService.IntegrationTests.csproj", "{835ACC4A-4597-48E4-BA85-115FA4E14858}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7B67759-7737-4D3D-B72C-3E8AB646FE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B058B9E1-0B64-4998-86CB-616DD90A925F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B058B9E1-0B64-4998-86CB-616DD90A925F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B058B9E1-0B64-4998-86CB-616DD90A925F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B058B9E1-0B64-4998-86CB-616DD90A925F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835ACC4A-4597-48E4-BA85-115FA4E14858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835ACC4A-4597-48E4-BA85-115FA4E14858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835ACC4A-4597-48E4-BA85-115FA4E14858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835ACC4A-4597-48E4-BA85-115FA4E14858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,7 +31,7 @@ namespace OfferFinderConsole
             OfferFilter offerFilter = serviceProvider.GetService<OfferFilter>();
 
             string regionName = "amsterdam";
-            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(regionName).Result;
+            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder().Result;
 
             int totalCount = 0;
             foreach (EstateAgentInfo agent in agents)
