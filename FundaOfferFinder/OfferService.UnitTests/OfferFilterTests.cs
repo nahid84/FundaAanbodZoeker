@@ -45,7 +45,7 @@ namespace OfferFilterTests.UnitTests
         }
 
         [Test]
-        public async Task GetEstateAgentsByHighestSaleOrder_Returns_Three_Objects()
+        public async Task GetEstateAgentsByHighestSaleOrder_Returns_Three_Offers()
         {
             SetupApiClientGetData(OfferFilterResponse.ThreeOffersOnePage);
 
@@ -68,7 +68,7 @@ namespace OfferFilterTests.UnitTests
         }
 
         [Test]
-        public async Task GetEstateAgentsByHighestSaleOrder_Returns_No_Objects()
+        public async Task GetEstateAgentsByHighestSaleOrder_Returns_No_Offer()
         {
             SetupApiClientGetData(OfferFilterResponse.NoOffersNoPage);
 
@@ -78,7 +78,7 @@ namespace OfferFilterTests.UnitTests
         }
 
         [Test]
-        public async Task GetEstateAgentsByHighestSaleOrder_Returns_Six_Objects_By_Three_Pages()
+        public async Task GetEstateAgentsByHighestSaleOrder_Returns_Six_Offers_By_Three_Pages()
         {
             SetupApiClientGetDataByPage(1, OfferFilterResponse.SixOffersThreePages[0]);
             SetupApiClientGetDataByPage(2, OfferFilterResponse.SixOffersThreePages[1]);
