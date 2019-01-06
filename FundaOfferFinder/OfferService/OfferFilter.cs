@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
+using System.Diagnostics;
+using System.Threading;
+using System;
 
 namespace OfferService
 {
@@ -15,7 +18,8 @@ namespace OfferService
         private ApiClient apiClient;
         private FundaApiSettings apiSettings;
 
-        private const int pageSize = 25;
+        private const int PageSize = 25;
+        private const int ThrottlingValue = 100; // Request per minute
 
         public OfferFilter(IOptions<FundaApiSettings> settings, ApiClient apiClient)
         {
@@ -31,7 +35,7 @@ namespace OfferService
                 { "{key}" , apiSettings.Key },
                 { "{searchQuery}", $"/{string.Join("/", searchParams)}" },
                 { "{pageIndex}", pageIndex.ToString() },
-                { "{pageSize}", pageSize.ToString() }
+                { "{pageSize}", PageSize.ToString() }
             };
         }
 
@@ -47,13 +51,29 @@ namespace OfferService
 
             int pageIndex = 1;
             OfferModel offerModel;
+
+            Stopwatch stopWatch = Stopwatch.StartNew();
+            
             do
             {
                 var templateMap = TemplateMap(pageIndex, searchParams);
                 string relativeUri = Regex.Replace(apiSettings.OfferUriTemplate, "{[^{}]+}", x => GetReplacement(x, templateMap));
                 offerModel = await apiClient.GetData<OfferModel>(relativeUri);
                 offers.AddRange(offerModel.Objects);
+
+                if (stopWatch.Elapsed <= TimeSpan.FromSeconds(60))
+                {
+                    bool moreThanThreshold = (pageIndex / ThrottlingValue) >= 1;
+
+                    if (moreThanThreshold)
+                        Thread.Sleep(15000);
+                }
+                else
+                    stopWatch.Restart();
+
             } while (pageIndex++ < offerModel.Paging.AantalPaginas);
+
+            stopWatch.Stop();
 
             return offers.GroupBy(x => x.MakelaarNaam)
                          .OrderByDescending(x => x.Count())
