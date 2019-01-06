@@ -37,7 +37,7 @@ namespace OfferFinderConsole
                 Console.WriteLine($"{agent.Name} has {agent.OfferCount} items in sale");
             }
 
-            Console.WriteLine($"Total {totalCount} items in sale for {regionName}");
+            Console.WriteLine($"Total {totalCount} items for sale in {regionName}");
 
             Console.ReadKey();
         }
