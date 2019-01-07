@@ -10,6 +10,7 @@ using Models;
 using System.Diagnostics;
 using System.Threading;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace OfferService
 {
@@ -17,14 +18,16 @@ namespace OfferService
     {
         private ApiClient apiClient;
         private FundaApiSettings apiSettings;
+        private ILogger<OfferFilter> logger;
 
         private const int PageSize = 25;
         private const int ThrottlingValue = 100; // Request per minute
 
-        public OfferFilter(IOptions<FundaApiSettings> settings, ApiClient apiClient)
+        public OfferFilter(IOptions<FundaApiSettings> settings, ApiClient apiClient, ILogger<OfferFilter> logger)
         {
             this.apiClient = apiClient;
-            this.apiSettings = settings.Value;
+            apiSettings = settings.Value;
+            this.logger = logger;
         }
 
         private Dictionary<string,string> TemplateMap(int pageIndex, params string[] searchParams)
@@ -58,6 +61,9 @@ namespace OfferService
             {
                 var templateMap = TemplateMap(pageIndex, searchParams);
                 string relativeUri = Regex.Replace(apiSettings.OfferUriTemplate, "{[^{}]+}", x => GetReplacement(x, templateMap));
+
+                logger.LogDebug($"Hitting URL: {apiClient.Client?.BaseAddress}{relativeUri}");
+
                 offerModel = await apiClient.GetData<OfferModel>(relativeUri);
 
                 if (offerModel?.Objects != null)

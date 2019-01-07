@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
@@ -16,6 +17,7 @@ namespace OfferFilterTests.UnitTests
     {
         private Mock<ApiClient> mockedApiClient;
         private Mock<IOptions<FundaApiSettings>> mockedOption;
+        private Mock<ILogger<OfferFilter>> mockedLogger;
 
         private OfferFilter offerFilter;
 
@@ -32,6 +34,7 @@ namespace OfferFilterTests.UnitTests
         {
             mockedApiClient = new Mock<ApiClient>();
             mockedOption = new Mock<IOptions<FundaApiSettings>>();
+            mockedLogger = new Mock<ILogger<OfferFilter>>();
 
             FundaApiSettings fundaApiSettings = new FundaApiSettings
             {
@@ -41,7 +44,7 @@ namespace OfferFilterTests.UnitTests
             };
             mockedOption.SetupGet(x => x.Value).Returns(fundaApiSettings);
 
-            offerFilter = new OfferFilter(mockedOption.Object, mockedApiClient.Object);
+            offerFilter = new OfferFilter(mockedOption.Object, mockedApiClient.Object, mockedLogger.Object);
         }
 
         [Test]

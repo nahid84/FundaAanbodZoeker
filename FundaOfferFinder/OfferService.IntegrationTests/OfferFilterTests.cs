@@ -1,4 +1,6 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using OfferService.Client;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ namespace OfferService.IntegrationTests
 
         public OfferFilterTests(FundaApiSettingsFixture settingsFixture)
         {
-            offerFilter = new OfferFilter(settingsFixture, new JsonApiClient(settingsFixture));
+            offerFilter = new OfferFilter(settingsFixture, new JsonApiClient(settingsFixture), new NullLogger<OfferFilter>());
         }
 
         [Fact]
@@ -23,7 +25,7 @@ namespace OfferService.IntegrationTests
             result.Select(x => x.OfferCount)
                   .Aggregate((prev, next) => prev + next)
                   .Should()
-                  .Be(574);
+                  .Be(566);
         }
 
         [Fact]

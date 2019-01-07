@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OfferFinderConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "amsterdam,tuin 10"
+    }
+  }
+}
