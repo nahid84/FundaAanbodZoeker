@@ -25,7 +25,7 @@ namespace OfferService.IntegrationTests
             result.Select(x => x.OfferCount)
                   .Aggregate((prev, next) => prev + next)
                   .Should()
-                  .Be(566);
+                  .Be(572);
         }
 
         [Fact]
