@@ -80,7 +80,7 @@ namespace OfferFinderConsole
             string[] headers = new string[] { "Estate Agent Name", "Offer Count" };
             ConsoleUI consoleUI = new ConsoleUI(TableStart, ConsoleUI.Align.Left, headers);
 
-            offerFilter.ShowProgress(PrintProgress);
+            offerFilter.UpdateProgress(PrintProgress);
 
             var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(args)
                                     .GetAwaiter()
