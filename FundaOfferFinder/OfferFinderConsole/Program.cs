@@ -16,7 +16,7 @@ namespace OfferFinderConsole
     internal class Program
     {
         private const string SettingsFileName = "appsettings.json";
-        private const int TableStart = 3;
+        private const int TableStart = 4;
         private const int NumberOfDefaultItemsToShow = 10;
 
         private static IConfiguration CreateConfiguration => 
@@ -53,6 +53,11 @@ namespace OfferFinderConsole
             Console.WriteLine("dotnet OfferFinderConsole.dll searchParam1, searchParam2,... [topResults]");
         }
 
+        private static void PrintProgress(ProgressModel progressData)
+        {
+            Console.Write("\rProgress = {0,3}%", (progressData.Current * 100) / progressData.Total);
+        }
+
         private static void PrintData(string[] args, int numberOfItemsToShow)
         {
             Log.Logger = new LoggerConfiguration()
@@ -75,7 +80,12 @@ namespace OfferFinderConsole
             string[] headers = new string[] { "Estate Agent Name", "Offer Count" };
             ConsoleUI consoleUI = new ConsoleUI(TableStart, ConsoleUI.Align.Left, headers);
 
-            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(args).Result.Take(numberOfItemsToShow);
+            offerFilter.ShowProgress(PrintProgress);
+
+            var agents = offerFilter.GetEstateAgentsByHighestSaleOrder(args)
+                                    .GetAwaiter()
+                                    .GetResult()
+                                    .Take(numberOfItemsToShow);
 
             ArrayList tableData = new ArrayList(agents.Select(x => new string[] { x.Name, x.OfferCount.ToString() }).ToList());
             consoleUI.RePrint(tableData);

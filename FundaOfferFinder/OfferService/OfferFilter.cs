@@ -19,6 +19,7 @@ namespace OfferService
         private ApiClient apiClient;
         private FundaApiSettings apiSettings;
         private ILogger<OfferFilter> logger;
+        private IProgress<ProgressModel> progress;
 
         private const int PageSize = 25;
         private const int ThrottlingValue = 100; // Request per minute
@@ -48,6 +49,12 @@ namespace OfferService
 
             return replacement;
         }
+
+        public void ShowProgress(Action<ProgressModel> updateHandler)
+        {
+            progress = new Progress<ProgressModel>(updateHandler);
+        }
+
         public async Task<IEnumerable<EstateAgentInfo>> GetEstateAgentsByHighestSaleOrder(params string[] searchParams)
         {
             List<OfferObjectModel> offers = new List<OfferObjectModel>();
@@ -65,6 +72,12 @@ namespace OfferService
                 logger.LogDebug($"Hitting URL: {apiClient.Client?.BaseAddress}{relativeUri}");
 
                 offerModel = await apiClient.GetData<OfferModel>(relativeUri);
+
+                progress?.Report(new ProgressModel
+                {
+                    Total = offerModel.Paging.AantalPaginas,
+                    Current = offerModel.Paging.HuidigePagina
+                });
 
                 if (offerModel?.Objects != null)
                     offers.AddRange(offerModel.Objects);
