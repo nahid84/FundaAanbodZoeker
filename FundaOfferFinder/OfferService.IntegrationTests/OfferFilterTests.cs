@@ -18,20 +18,24 @@ namespace OfferService.IntegrationTests
         }
 
         [Fact]
-        public async Task GetEstateAgentsByHighestSaleOrder_Returns_574_Offers()
+        public async Task GetEstateAgentsByHighestSaleOrder_Returns_Some_Agents()
         {
-            var result = await offerFilter.GetEstateAgentsByHighestSaleOrder("amsterdam","tuin");
+            var result = await offerFilter.GetEstateAgentsByHighestSaleOrder("amsterdam", "tuin");
 
-            result.Select(x => x.OfferCount)
-                  .Aggregate((prev, next) => prev + next)
-                  .Should()
-                  .Be(572);
+            result.Where(x =>
+            {
+                return
+                x.Name.Equals("Hoekstra en van Eck Amsterdam West")
+                ||
+                x.Name.Equals("Fransen & Kroes Makelaars");
+
+            }).Should().HaveCount(2);
         }
 
         [Fact]
         public async Task GetEstateAgentsByHighestSaleOrder_Returns_Zero_Offer()
         {
-            var result = await offerFilter.GetEstateAgentsByHighestSaleOrder("amsterda", "tuin");
+            var result = await offerFilter.GetEstateAgentsByHighestSaleOrder("amsterda");
 
             result.Should().BeEmpty();
         }

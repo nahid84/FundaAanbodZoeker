@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OfferFinderConsole
+namespace OfferFinderConsole.Extensions
 {
     internal static class StringExtension
     {
