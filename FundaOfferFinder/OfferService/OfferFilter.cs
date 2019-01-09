@@ -111,7 +111,7 @@ namespace OfferService
                 totalPageIndexes = offerModel.Paging.AantalPaginas;
                 progress?.Report(CalculateProgress(offerModel.Paging.HuidigePagina, offerModel.Paging.AantalPaginas));
 
-                if (offerModel?.Objects != null)
+                if (offerModel.Objects != null)
                     offers.AddRange(offerModel.Objects);
 
             } while (pageIndex < totalPageIndexes);
