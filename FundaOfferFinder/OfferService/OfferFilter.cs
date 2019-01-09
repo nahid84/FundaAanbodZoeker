@@ -94,7 +94,7 @@ namespace OfferService
                 {
                     if (--retryCount < 0)
                     {
-                        throw new NotCompletedException<OfferFilter>("Reached maximum retries", logger);
+                        throw new NotCompletedException("Reached maximum retries", logger);
                     }
 
                     logger.LogInformation("Waiting to overcome exceed limit");

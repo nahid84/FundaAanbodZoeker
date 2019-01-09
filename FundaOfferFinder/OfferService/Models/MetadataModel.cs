@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OfferService.Models
+﻿namespace OfferService.Models
 {
+    /// <summary>
+    /// Metadata section
+    /// </summary>
     public class MetadataModel
     {
         public string Titel { get; set; }

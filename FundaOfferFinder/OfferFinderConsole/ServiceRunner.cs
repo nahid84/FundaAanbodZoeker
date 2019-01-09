@@ -70,8 +70,8 @@ namespace OfferFinderConsole
         /// <summary>
         /// Print agents having most offers into console
         /// </summary>
-        /// <param name="args"></param>
-        /// <param name="numberOfItemsToShow"></param>
+        /// <param name="args">Arguments to call the service</param>
+        /// <param name="numberOfItemsToShow">Number of items to display into the console</param>
         internal static void PrintData(string[] args, int numberOfItemsToShow)
         {
             Log.Logger = new LoggerConfiguration()
@@ -107,7 +107,7 @@ namespace OfferFinderConsole
                 ArrayList tableData = new ArrayList(topAgents.Select(x => new string[] { x.Name, x.OfferCount.ToString() }).ToList());
                 consoleUI.RePrint(tableData);
             }
-            catch (NotCompletedException<OfferFilter> ncEx)
+            catch (NotCompletedException ncEx)
             {
                 Console.WriteLine("\r\nAn error occured, please try again later");
                 Console.WriteLine($"Reason: {ncEx.Message}");

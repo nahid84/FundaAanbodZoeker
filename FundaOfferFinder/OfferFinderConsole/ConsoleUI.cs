@@ -1,4 +1,7 @@
-﻿// This code has been copied from Microsoft MSDN forum
+﻿#region
+// This code has been copied from Microsoft MSDN forum
+// https://social.msdn.microsoft.com/Forums/vstudio/en-US/254ac452-83bd-489d-8ce2-462a2c9acabc/create-a-table-by-c-console-application?forum=csharpgeneral
+#endregion
 
 using System;
 using System.Collections;
