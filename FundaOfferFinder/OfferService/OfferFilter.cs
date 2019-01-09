@@ -45,6 +45,10 @@ namespace OfferService
         /// Number of retries in case of failure
         /// </summary>
         private const int RetryCount = 3;
+        /// <summary>
+        /// Wait in seconds to overcome exceed limit
+        /// </summary>
+        private const int ExceedlimitWaitInSec = 15;
 
         /// <summary>
         /// The class constructor
@@ -98,7 +102,7 @@ namespace OfferService
                     }
 
                     logger.LogInformation("Waiting to overcome exceed limit");
-                    await Task.Delay(new TimeSpan(0, 0, 10));
+                    await Task.Delay(new TimeSpan(hours: 0, minutes: 0, seconds: ExceedlimitWaitInSec));
                     pageIndex--; // Adjust the target to re-fetch 
                     continue;
                 }
