@@ -65,6 +65,7 @@ namespace OfferFinderConsole
         {
             Console.WriteLine("Usage:");
             Console.WriteLine("dotnet OfferFinderConsole.dll searchParam1, searchParam2,... [topResults]");
+            Console.WriteLine("Example: dotnet OfferFinderConsole.dll amsterdam,tuin 10");
         }
 
         /// <summary>
