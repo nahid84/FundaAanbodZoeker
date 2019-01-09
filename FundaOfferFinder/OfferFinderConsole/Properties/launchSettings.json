@@ -2,7 +2,7 @@
   "profiles": {
     "OfferFinderConsole": {
       "commandName": "Project",
-      "commandLineArgs": "amsterdam 10"
+      "commandLineArgs": "amsterdam,tuin 10"
     }
   }
 }

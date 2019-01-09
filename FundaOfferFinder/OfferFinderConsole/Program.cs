@@ -19,13 +19,26 @@ namespace OfferFinderConsole
         /// <param name="args">Arguments passed to the program</param>
         internal static void Main(string[] args)
         {
-            if(args.Count() < 1)
+            int argsCount = args.Count();
+
+            if(argsCount < 1 || argsCount > 2)
             {
                 ServiceRunner.PrintUsage();
 
-            } else
+            } else if(argsCount == 1)
             {
-                ServiceRunner.PrintData(args[0].Split(','), string.IsNullOrEmpty(args[1]) ? NumberOfDefaultItemsToShow : int.Parse(args[1]));
+                ServiceRunner.PrintData(args[0].Split(','), NumberOfDefaultItemsToShow);
+
+            } else if(argsCount == 2)
+            {
+                if(int.TryParse(args[1], out int result))
+                {
+                    ServiceRunner.PrintData(args[0].Split(','), result);
+
+                } else
+                {
+                    Console.WriteLine("Second argument must be a number");
+                }
             }
 
             Console.WriteLine("Press enter to exit...");
