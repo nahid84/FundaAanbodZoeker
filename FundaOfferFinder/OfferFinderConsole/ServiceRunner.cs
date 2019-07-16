@@ -20,6 +20,11 @@ namespace OfferFinderConsole
     internal class ServiceRunner
     {
         /// <summary>
+        /// Service provider instance
+        /// </summary>
+        private static IServiceProvider serviceProvider;
+
+        /// <summary>
         /// Application settings file name
         /// </summary>
         private const string SettingsFileName = "appsettings.json";
@@ -69,19 +74,41 @@ namespace OfferFinderConsole
         }
 
         /// <summary>
+        /// Prepare the service runner for execution
+        /// </summary>
+        public static void Prepare()
+        {
+            Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .WriteTo.File($"{Environment.CurrentDirectory}\\Logs\\log-{DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss")}.txt")
+               .CreateLogger();
+
+            serviceProvider = RegisterServices(CreateConfiguration());
+        }
+
+        /// <summary>
+        /// Dispose the service provider to dispose all services
+        /// </summary>
+        public static void Dispose()
+        {
+            if(serviceProvider == null)
+            {
+                return;
+            }
+
+            if(serviceProvider is IDisposable)
+            {
+                ((IDisposable)serviceProvider).Dispose();
+            }
+        }
+
+        /// <summary>
         /// Print agents having most offers into console
         /// </summary>
         /// <param name="args">Arguments to call the service</param>
         /// <param name="numberOfItemsToShow">Number of items to display into the console</param>
         internal static void PrintData(string[] args, int numberOfItemsToShow)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File($"{Environment.CurrentDirectory}\\Logs\\log-{DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss")}.txt")
-                .CreateLogger();
-
-            IServiceProvider serviceProvider = RegisterServices(CreateConfiguration());
-
             ILogger logger = serviceProvider.GetService<ILogger<Program>>();
             OfferFilter offerFilter = serviceProvider.GetService<OfferFilter>();
 

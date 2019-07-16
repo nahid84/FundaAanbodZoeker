@@ -21,6 +21,8 @@ namespace OfferFinderConsole
         {
             int argsCount = args.Count();
 
+            ServiceRunner.Prepare();
+
             if(argsCount < 1 || argsCount > 2)
             {
                 ServiceRunner.PrintUsage();
@@ -40,6 +42,8 @@ namespace OfferFinderConsole
                     Console.WriteLine("Second argument must be a number");
                 }
             }
+
+            ServiceRunner.Dispose();
 
             Console.WriteLine("Press enter to exit...");
             Console.ReadKey();
